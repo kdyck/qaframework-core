@@ -1,0 +1,127 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.qarepo</groupId>
+    <artifactId>qaframework-core</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <name>QARepo - QAFramework - Core</name>
+    <description>QAFramework Core leverages open-source libraries to provide tools and utilities for core Selenium WebDriver automation.
+        Including:
+        DriverFactory setup for common web browsers tests
+        WebDriver setup with thread management to allow parallel test runs
+        FluentWaits for polling and timeouts
+        UserAgent and Proxy connection randomizer driver utils
+        Log4j2 Logger implementation
+        General utilities: JsoupLinkExtractor, PropertiesUtils, SeleniumUtils
+    </description>
+    <url>https://www.qarepo.com/qaframework-core</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Rafael Dyck</name>
+            <email>rafaeldyck@gmail.com</email>
+            <organization>qarepo</organization>
+            <url>https://www.qarepo.com</url>
+        </developer>
+        <developer>
+            <name>Kacianne Dyck</name>
+            <email>kdyck00@gmail.com</email>
+            <organization>qarepo</organization>
+            <url>https://www.qarepo.com</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/kdyck/qaframework-core.git</connection>
+        <developerConnection>scm:git:git@github.com:kdyck/qaframework-core.git</developerConnection>
+        <url>https://github.com/kdyck/qaframework-core</url>
+        <tag>develop</tag>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/kdyck/qaframework-core/issues</url>
+    </issueManagement>
+
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.13.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.11</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.43</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.10.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.7</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>1.11</source>
+                    <target>1.11</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
