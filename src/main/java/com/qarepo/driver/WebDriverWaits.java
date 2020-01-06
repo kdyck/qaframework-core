@@ -26,6 +26,10 @@ import org.openqa.selenium.support.ui.FluentWait;
 import java.time.Duration;
 import java.util.List;
 
+/*
+ * @author Rafael Dyck (rafaeldyck@gmail.com)
+ * @since 1.0.0
+ */
 public class WebDriverWaits {
     private static final Logger logger = LogManager.getLogger(WebDriverWaits.class);
     private static FluentWait<WebDriver> wait;

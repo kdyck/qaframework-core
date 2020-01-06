@@ -27,6 +27,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAmount;
 
+/*
+ * @author Rafael Dyck (rafaeldcyk@gmail.com)
+ * @author Kaci Dyck (kdyck00@gmail.com)
+ * @since 1.0.0
+ */
 public final class SeleniumUtils {
 
     /*

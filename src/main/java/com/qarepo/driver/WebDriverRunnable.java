@@ -16,6 +16,10 @@
  */
 package com.qarepo.driver;
 
+/*
+ * @author Rafael Dyck (rafaeldyck@gmail.com)
+ * @since 1.0.0
+ */
 public interface WebDriverRunnable {
     void startWebDriver(String browser);
 

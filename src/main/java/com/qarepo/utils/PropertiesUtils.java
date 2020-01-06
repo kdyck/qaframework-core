@@ -28,6 +28,10 @@ import java.util.Properties;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+/*
+ * @author Kaci Dyck (kdyck00@gmail.com)
+ * @since 1.0.0
+ */
 public class PropertiesUtils {
     private static final Logger logger = LogManager.getLogger(PropertiesUtils.class);
     private static PropertiesUtils instance = null;

@@ -21,6 +21,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
+/*
+ * @author Rafael Dyck (rafaeldyck@gmail.com)
+ * @since 1.0.0
+ */
 public class WebDriverRunner implements WebDriverRunnable {
     private static final Logger logger = LogManager.getLogger(WebDriverRunner.class);
 

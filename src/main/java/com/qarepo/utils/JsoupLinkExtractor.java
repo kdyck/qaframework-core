@@ -29,6 +29,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/*
+ * @author Kaci Dyck (kdyck00@gmail.com)
+ * @since 1.0.0
+ */
 public class JsoupLinkExtractor {
     private static final Logger LOGGER = LogManager.getLogger(JsoupLinkExtractor.class);
     private static StringWriter sw = new StringWriter();
