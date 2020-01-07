@@ -33,20 +33,21 @@ import java.util.stream.Stream;
  * @author Kaci Dyck (kdyck00@gmail.com)
  * @since 1.0.0
  */
-public class JsoupLinkExtractor {
-    private static final Logger LOGGER = LogManager.getLogger(JsoupLinkExtractor.class);
+public class JSoupLinkExtractor {
+    private static final Logger LOGGER = LogManager.getLogger(JSoupLinkExtractor.class);
     private static StringWriter sw = new StringWriter();
     private String url;
 
-    public JsoupLinkExtractor(String url) {
+    public JSoupLinkExtractor(String url) {
         this.url = url;
     }
 
     public void writeDataArrayToCSV(List<String[]> data, String filename) {
-        File csvOutFile = new File(filename);
+        File csvOutFile = new File(filename).getAbsoluteFile();
+        System.out.println(csvOutFile);
         try (PrintWriter pw = new PrintWriter(csvOutFile)) {
             data.stream()
-                .map(JsoupLinkExtractor::convertDataArrayToCSV)
+                .map(JSoupLinkExtractor::convertDataArrayToCSV)
                 .distinct()
                 .forEach(pw::println);
         } catch (FileNotFoundException e) {
@@ -58,7 +59,7 @@ public class JsoupLinkExtractor {
 
     public static String convertDataArrayToCSV(String[] data) {
         return Stream.of(data)
-                     .map(JsoupLinkExtractor::escapeSpecialCharacters)
+                     .map(JSoupLinkExtractor::escapeSpecialCharacters)
                      .collect(Collectors.joining(","));
     }
 

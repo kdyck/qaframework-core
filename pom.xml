@@ -6,23 +6,14 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-    <name>QARepo - QAFramework - Core</name>
-    <description>QAFramework Core leverages open-source libraries to provide tools and utilities for core Selenium WebDriver automation.
-        Including:
-        DriverFactory setup for common web browsers tests
-        WebDriver setup with thread management to allow parallel test runs
-        FluentWaits for polling and timeouts
-        UserAgent and Proxy connection randomizer driver utils
-        Log4j2 Logger implementation
-        General utilities: JsoupLinkExtractor, PropertiesUtils, SeleniumUtils
-    </description>
-    <url>https://www.qarepo.com/qaframework-core</url>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>QAFramework Core leverages open-source libraries to provide tools and utilities for core Selenium WebDriver automation.</description>
+    <url>https://github.com/kdyck/qaframework-core</url>
 
     <licenses>
         <license>
-            <name>Apache License, Version 2.0</name>
+            <name>The Apache License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
         </license>
     </licenses>
 
@@ -44,8 +35,7 @@
     <scm>
         <connection>scm:git:git://github.com/kdyck/qaframework-core.git</connection>
         <developerConnection>scm:git:git@github.com:kdyck/qaframework-core.git</developerConnection>
-        <url>https://github.com/kdyck/qaframework-core</url>
-        <tag>develop</tag>
+        <url>https://github.com/kdyck/qaframework-core/master</url>
     </scm>
 
     <issueManagement>

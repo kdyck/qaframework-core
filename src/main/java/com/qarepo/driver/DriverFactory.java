@@ -42,7 +42,7 @@ import java.util.concurrent.TimeUnit;
  */
 class DriverFactory {
 
-    static WebDriver createDriverInstance(final String browser, String downloadPath) {
+    static WebDriver createDriverInstance(String browser, String downloadPath) {
         WebDriver driver = null;
         if (browser.equalsIgnoreCase("Firefox")) {
             WebDriverManager.firefoxdriver().setup();

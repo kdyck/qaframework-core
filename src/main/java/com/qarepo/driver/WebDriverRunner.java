@@ -26,20 +26,22 @@ import org.openqa.selenium.WebDriver;
  * @since 1.0.0
  */
 public class WebDriverRunner implements WebDriverRunnable {
-    private static final Logger logger = LogManager.getLogger(WebDriverRunner.class);
+    private static final Logger LOGGER = LogManager.getLogger(WebDriverRunner.class);
 
+    @Override
     public void startWebDriver(String browser) {
         WebDriver driver = DriverFactory.createDriverInstance(browser, "");
         WebDriverThreadManager.setWebDriver(driver);
-        logger.log(Level.INFO, "[WebDriver Hash: " + driver.hashCode() + "] WebDriver Created");
+        LOGGER.log(Level.INFO, "[WebDriver Hash: " + driver.hashCode() + "] WebDriver Created");
     }
 
+    @Override
     public void stopWebDriver() {
         int driverHash = 0;
         if (WebDriverThreadManager.getDriver() != null) {
             driverHash = WebDriverThreadManager.getDriver().hashCode();
             WebDriverThreadManager.getDriver().quit();
         }
-        logger.log(Level.INFO, "[WebDriver Hash: " + driverHash + "] WebDriver Stopped");
+        LOGGER.log(Level.INFO, "[WebDriver Hash: " + driverHash + "] WebDriver Stopped");
     }
 }

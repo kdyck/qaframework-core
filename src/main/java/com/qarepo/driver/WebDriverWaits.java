@@ -31,10 +31,10 @@ import java.util.List;
  * @since 1.0.0
  */
 public class WebDriverWaits {
-    private static final Logger logger = LogManager.getLogger(WebDriverWaits.class);
-    private static FluentWait<WebDriver> wait;
+    private static final Logger LOGGER = LogManager.getLogger(WebDriverWaits.class);
     private static final int DEFAULT_WAIT = 10;
     private static final int DEFAULT_POLLING = 1;
+    private static FluentWait<WebDriver> wait;
 
     public static WebElement findElementWithWait(By by, long timeout, long polling) {
         WebDriver driver = WebDriverThreadManager.getDriver();
@@ -143,7 +143,7 @@ public class WebDriverWaits {
                 WebDriverThreadManager.getDriver().findElement(by).click();
                 break;
             } catch (ElementClickInterceptedException e) {
-                logger.log(Level.WARN, "[WebDriver Hash: " + WebDriverThreadManager.getDriver().hashCode()
+                LOGGER.log(Level.WARN, "[WebDriver Hash: " + WebDriverThreadManager.getDriver().hashCode()
                         + "][attempt: " + (i + 1) + "] Failed to click element: " + by.toString());
             }
         }

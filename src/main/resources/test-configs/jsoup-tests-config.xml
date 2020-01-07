@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Suite" parallel="methods" thread-count="3">
+    <test name="Sample Site - Generic JSoup Tests - Production - Chrome">
+        <parameter name="browser" value="Google Chrome Headless"/>
+        <parameter name="URL" value="https://arstechnica.com/"/>
+        <groups>
+            <run>
+                <include name="jsoup-site-links"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.qarepo.*" />
+        </packages>
+    </test>
+</suite>
