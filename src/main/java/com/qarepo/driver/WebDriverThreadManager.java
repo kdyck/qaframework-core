@@ -19,7 +19,6 @@ package com.qarepo.driver;
 import org.openqa.selenium.WebDriver;
 
 /*
- * @author Rafael Dyck (rafaeldyck@gmail.com)
  * @since 1.0.0
  */
 public class WebDriverThreadManager {

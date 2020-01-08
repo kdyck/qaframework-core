@@ -22,7 +22,6 @@ package com.qarepo.driver.proxy;
  * used to obtain proxy Host IP Address(es) and Port(s) from https://free-proxy-list.net/.
  * </p>
  *
- * @author Kaci Dyck (kdyck00@gmail.com)
  * @since 1.0.0
  */
 public class Proxy {

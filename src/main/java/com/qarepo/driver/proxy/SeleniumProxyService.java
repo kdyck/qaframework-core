@@ -46,7 +46,6 @@ import java.util.stream.Collectors;
  * Calling {@link #getRandomProxy()} is a simple way to obtain a random {@link Proxy} with a valid connection.
  * </p>
  *
- * @author Kaci Dyck (kdyck00@gmail.com)
  * @since 1.0.0
  */
 public class SeleniumProxyService implements ProxyFinder {
@@ -90,11 +89,11 @@ public class SeleniumProxyService implements ProxyFinder {
     /**
      * <p>
      * Starts WebDriver thread with browser "GOOGLE CHROME HEADLESS" and gets https://free-proxy-list.net
-     * Calls {@link #setProtocol()} method to set https protocol, gets {@link  List<String>} ipAddresses and ports
-     * then check for valid proxy connections. Valid connections are added to {@link List<Proxy>} the WebDriver is stopped.
+     * Calls {@link #setProtocol()} method to set https protocol, gets ipAddresses and ports
+     * then check for valid proxy connections. Valid connections are added to proxy list and the WebDriver is stopped.
      * </p>
      *
-     * @return a {@link List<Proxy>} of proxies
+     * @return a list of proxies
      */
     @Override
     public List<Proxy> getProxyList() {

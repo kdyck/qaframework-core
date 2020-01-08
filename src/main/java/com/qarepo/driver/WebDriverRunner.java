@@ -22,7 +22,6 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 /*
- * @author Rafael Dyck (rafaeldyck@gmail.com)
  * @since 1.0.0
  */
 public class WebDriverRunner implements WebDriverRunnable {

@@ -37,7 +37,6 @@ import java.util.stream.Collectors;
  * https://developers.whatismybrowser.com/useragents/explore/software_name/chrome/ site.
  * </p>
  *
- * @author Kaci Dyck (kdyck00@gmail.com)
  * @since 1.0.0
  */
 public class SeleniumUserAgentService {

@@ -27,7 +27,6 @@ import java.time.Duration;
 import java.util.List;
 
 /*
- * @author Rafael Dyck (rafaeldyck@gmail.com)
  * @since 1.0.0
  */
 public class WebDriverWaits {

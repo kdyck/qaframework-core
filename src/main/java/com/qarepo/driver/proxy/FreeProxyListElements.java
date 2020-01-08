@@ -21,9 +21,8 @@ import org.openqa.selenium.By;
 /**
  * This class designates the locators used in {@link SeleniumProxyService} method implementations.
  * It uses Selenium WebDriver's {@link By} locator and XPath expressions to
- * {@return} locators of relevant https://free-proxy-list.net/ elements.
+ * get relevant [https://free-proxy-list.net/] elements.
  *
- * @author Kaci Dyck (kdyck00@gmail.com)
  * @since 1.0.0
  */
 
@@ -35,7 +34,7 @@ class FreeProxyListElements {
     }
 
     /**
-     * @return {@link By} Locator for the https drop-down 'yes' option
+     * @return {@link By} Locator element of the https drop-down 'yes' option
      */
     static By dropDown_FilterHttps() {
         return By.xpath("(//th[7]//select/option)[3]");

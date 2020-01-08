@@ -19,7 +19,6 @@ package com.qarepo.driver.proxy;
 import java.util.List;
 
 /**
- * @author Kaci Dyck (kdyck00@gmail.com)
  * @since 1.0.0
  */
 public interface ProxyFinder {

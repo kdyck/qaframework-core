@@ -37,7 +37,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /*
- * @author Rafael Dyck (rafaeldyck@gmail.com)
  * @since 1.0.0
  */
 class DriverFactory {
