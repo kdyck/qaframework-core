@@ -15,16 +15,27 @@
  * limitations under the License.
  *
  */
-package com.qarepo.driver.proxy;
+package com.qarepo;
 
+import org.testng.TestNG;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * @since 1.0.0
+ *  @since 1.0.0
  */
-public interface ProxyFinder {
-
-    Proxy getRandomProxy();
-
-    List<Proxy> getProxyList();
+public class TestNGRunner {
+    /**
+     * Runs website TestNG jar
+     *
+     * @param args config file - see /resource/test-configs
+     */
+    public static void main(String[] args) {
+        TestNG testng = new TestNG();
+        List<String> suites = new ArrayList<>(Arrays.asList(args));
+        testng.setTestSuites(suites);
+        testng.run();
+    }
 }

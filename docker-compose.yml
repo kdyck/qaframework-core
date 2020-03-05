@@ -1,0 +1,39 @@
+version: "3.7"
+services:
+
+  chrome:
+    image: selenium/standalone-chrome:3.141.59-zinc
+    container_name: chrome
+    volumes:
+      - /dev/shm/urandom:/dev/shm/urandom
+    ports:
+      - 4444:4444
+    networks:
+      - qarepo_network
+    tty: true
+
+  qarepo:
+    image: qarepo-core:1.0.0
+    container_name: qarepo-core
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - qarepo_network
+    restart: on-failure
+    depends_on:
+      - chrome
+    tty: true
+    volumes:
+      - './src:/qarepo_vol'
+
+networks:
+  qarepo_network:
+    name: qarepo_network
+    driver: bridge
+    external: false
+
+volumes:
+  qarepo_vol:
+    name: qarepo_vol
+    external: false

@@ -1,5 +1,6 @@
 /*
- * (C) Copyright 2020 qarepo.com (https://qarepo.com/)
+ * Copyright (c) 2020-2030, Rafael Dyck and Kacianne Dyck (qarepo.com) and contributing developers
+ * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +27,6 @@ import org.testng.annotations.Test;
  * test for the {@link JSoupUserAgentServiceTests}.
  * </p>
  *
- * @author Kaci Dyck (kdyck00@gmail.com)
  * @since 1.0.0
  */
 public class JSoupUserAgentServiceTests {

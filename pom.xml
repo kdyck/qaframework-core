@@ -1,62 +1,63 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.qarepo</groupId>
-    <artifactId>qaframework-core</artifactId>
-    <version>1.0.0</version>
-    <packaging>pom</packaging>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
-    </parent>
-
-    <name>${project.groupId}:${project.artifactId}</name>
-    <description>QAFramework Core leverages open-source libraries to provide tools and utilities for core Selenium
-        WebDriver automation.
+    <name>QARepo Framework Core </name>
+    <description>
+        Test framework that aims to simply the setup and maintenance Selenium WebDriver tests for Java.
     </description>
     <url>https://github.com/kdyck/qaframework-core</url>
+
+    <groupId>com.qarepo</groupId>
+    <artifactId>qaframework-core</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+
+        <project.encoding>UTF-8</project.encoding>
+        <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
+
+        <wdm.mainClass>com.qarepo.TestNGRunner</wdm.mainClass>
+    </properties>
+
+
+    <developers>
+        <developer>
+            <id>rafadyck</id>
+            <name>Rafael Dyck</name>
+            <email>rafaeldyck@gmail.com</email>
+        </developer>
+        <developer>
+            <id>kacidyck</id>
+            <name>Kacianne Dyck</name>
+            <email>kdyck00@gmail.com</email>
+        </developer>
+    </developers>
 
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
-    <developers>
-        <developer>
-            <name>Rafael Dyck</name>
-            <email>rafaeldyck@gmail.com</email>
-            <organization>qarepo</organization>
-            <url>https://www.qarepo.com</url>
-        </developer>
-        <developer>
-            <name>Kacianne Dyck</name>
-            <email>kdyck00@gmail.com</email>
-            <organization>qarepo</organization>
-            <url>https://www.qarepo.com</url>
-        </developer>
-    </developers>
-
     <scm>
-        <connection>scm:git:git://github.com/kdyck/qaframework-core.git</connection>
-        <developerConnection>scm:git:git@github.com:kdyck/qaframework-core.git</developerConnection>
-        <url>https://github.com/kdyck/qaframework-core/master</url>
+        <connection>scm:git:git://github.com/kdyck/qarepo-core-framework.git</connection>
+        <url>https://github.com/kdyck/qarepo-core-framework/master</url>
+        <developerConnection>scm:git:git@github.com:kdyck/qarepo-core-framework.git</developerConnection>
+        <tag>develop</tag>
     </scm>
 
     <issueManagement>
         <system>GitHub Issues</system>
         <url>https://github.com/kdyck/qaframework-core/issues</url>
     </issueManagement>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -83,6 +84,11 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+            <version>2.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-csv</artifactId>
             <version>2.10.0</version>
         </dependency>
         <dependency>
@@ -116,33 +122,49 @@
             <version>3.2.0</version>
             <type>maven-plugin</type>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>SHADED</shadedClassifierName>
+                            <transformers>
+                                <transformer implementation=
+                                                     "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.qarepo.TestNGRunner</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.4</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <outputDirectory>
+                        site/
+                    </outputDirectory>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -150,8 +172,8 @@
                 <configuration>
                     <show>private</show>
                     <nohelp>true</nohelp>
-                    <outputDirectory>src/main/javadoc</outputDirectory>
-                    <reportOutputDirectory>src/main/javadoc/reporting</reportOutputDirectory>
+                    <outputDirectory>javadoc</outputDirectory>
+                    <reportOutputDirectory>javadoc/reporting</reportOutputDirectory>
                 </configuration>
                 <executions>
                     <execution>
@@ -164,8 +186,23 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>1.6</version>
+                <configuration>
+                    <useAgent>true</useAgent>
+                </configuration>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -176,18 +213,46 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
         </plugins>
+
     </build>
 
     <reporting>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.1.1</version>
-            <configuration>
-            </configuration>
-        </plugin>
-    </plugins>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <destDir>javadoc2</destDir>
+                    <excludes>
+                        <exclude>**/Test*.java</exclude>
+                    </excludes>
+                    <sourcepath>src/main/java</sourcepath>
+                    <subpackages>com.qarepo</subpackages>
+                    <source>1.8</source>
+                </configuration>
+            </plugin>
+        </plugins>
     </reporting>
 </project>

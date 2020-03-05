@@ -1,14 +1,53 @@
-*.iws
-*.ipr
-*.iml
-*.pem
-.idea
-.settings
-.project
+### Java ###
+/test-output/
+javadoc
+*.log
+/banner-package/urls.txt
+
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+mvnw
+
+### STS ###
+.apt_generated
 .classpath
-.checkstyle
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
 debug.log
-target
-logs
-bin
-gen
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+
+# vim
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+Session.vim
+.netrwhist
+*~
+tags
+
+# VS Code
+.vscode/
+
+# OSX
+.DS_Store
