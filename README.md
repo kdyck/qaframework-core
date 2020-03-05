@@ -74,6 +74,6 @@ Below are details on how to run this test suite. You can run the tests using Doc
 3. Right-click testng.xml conf-file , click 'run' and select run as 'TestNG test' -or- while in *.xml file use shortcut CTRL+SHIFT+F10 (Intellij IDEA Only)
 
 ### Issues or Need help? 
-* [rafaeldyck@zadv.com](mailto:rafaeldyck@zadv.com)
-* [kacidyck@zadv.com](mailto:kacidyck@zadv.com) {As of 02.28.19 [kacidyck@gmail.com](mailto:kacidyck@gmail.com)}
+* [rafaeldyck@gmail.com](mailto:rafaeldyck@gmail.com)
+* [kdyck00@gmail.com](mailto:kdyck00@gmail.com)
 
