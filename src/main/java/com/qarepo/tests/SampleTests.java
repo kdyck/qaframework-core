@@ -33,10 +33,9 @@ import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class GoogleTests {
+public class SampleTests {
     GoogleActions webActions;
-    private static final Logger LOGGER = LogManager.getLogger(LinkTests.class);
-    private static StringWriter sw = new StringWriter();
+    private static final Logger LOGGER = LogManager.getLogger(SampleTests.class);
     private static final String GOOGLE_USERNAME = "qarepo.com@gmail.com";
     private static final String GOOGLE_PSWD = "rand0mXYZ123passworD";
 
@@ -51,7 +50,7 @@ public class GoogleTests {
 
     @Test(groups = {"search"}, description = "Click one search result")
     public void clickQARepoSearchResult() {
-      GoogleActions webActions = new GoogleActions();
+        GoogleActions webActions = new GoogleActions();
         searchForQARepo();
         webActions.clickElement(GoogleElements.text_Header_QaRepo(), "href");
         String currentUrl = WebDriverThreadManager.getDriver().getCurrentUrl();
@@ -64,7 +63,7 @@ public class GoogleTests {
         webActions.clickElement(GoogleElements.button_SignIn(), "href");
         webActions.login(GOOGLE_USERNAME, GOOGLE_PSWD);
         String errorText = webActions.getElementText(GoogleElements.text_WrongPassword(), "jsname");
-            boolean isEqual = errorText.equalsIgnoreCase("Wrong password. Try again or click Forgot password to reset it.")
+        boolean isEqual = errorText.equalsIgnoreCase("Wrong password. Try again or click Forgot password to reset it.")
                 || errorText.equalsIgnoreCase("This browser or app may not be secure. Learn more") ? true : false;
         Assert.assertTrue(isEqual, errorText);
     }
@@ -74,6 +73,7 @@ public class GoogleTests {
             , dataProviderClass = DataGenerator.class
             , description = "Click links and verify success/redirect response")
     public void clickSiteLinks(String... params) {
+        StringWriter sw = new StringWriter();
         SoftAssert softAssert = new SoftAssert();
         URL url;
         try {
