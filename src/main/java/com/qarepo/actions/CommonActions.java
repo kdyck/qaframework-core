@@ -33,11 +33,11 @@ public interface CommonActions {
      *
      * @param inputText           the text to type
      * @param webElement          the By locator for the element or elements the use is testing
-     * @param webElementAttribute the attribute for the tag
+     * @param webElementAttribute the attribute for the tag that you want for logs/report;
+     *                            this value should be human-readable are at least descriptive
      */
     default void typeText(By webElement, String inputText, String webElementAttribute) {
-        String elementAttribute = WebDriverWaits.findElementWithVisibilityWait(webElement)
-                                                .getAttribute(webElementAttribute);
+        String elementAttribute = getElementAttribute(webElement, webElementAttribute);
         WebDriverWaits.findElementWithWait(webElement).sendKeys(inputText);
         LOGGER.info("[WebDriver Hash: " + driverHash + "] [Type '" + inputText + "' into '" + elementAttribute + "' input field]");
     }
@@ -50,8 +50,7 @@ public interface CommonActions {
      * @param webElementAttribute the attribute for the tag
      */
     default void clickElement(By webElement, String webElementAttribute) {
-        String elementAttribute = WebDriverWaits.findElementWithWait(webElement, 10, 1)
-                                                .getAttribute(webElementAttribute);
+        String elementAttribute = getElementAttribute(webElement, webElementAttribute);
         WebDriverWaits.clickElementWithWait(webElement, 10, 1);
         LOGGER.info("[WebDriver Hash: " + driverHash + "] [Click '" + elementAttribute + "' button]");
     }
@@ -79,8 +78,7 @@ public interface CommonActions {
      * @return extract text as String
      */
     default String getElementText(By webElement, String webElementAttribute) {
-        String elementAttribute = WebDriverWaits.findElementWithWait(webElement, 10, 1)
-                                                .getAttribute(webElementAttribute);
+        String elementAttribute = getElementAttribute(webElement, webElementAttribute);
         String text = WebDriverWaits.findElementWithVisibilityWait(webElement).getText();
         LOGGER.info("[WebDriver Hash: " + driverHash + "] [Get text '" + text + " for element '" + elementAttribute + "']");
         return text;

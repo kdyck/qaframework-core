@@ -28,11 +28,11 @@ public class GoogleTests {
     private static final String GOOGLE_USERNAME = "qarepo.com@gmail.com";
     private static final String GOOGLE_PSWD = "rand0mXYZ123passworD";
 
-    @Test(groups = {"search"}, description = "Search for QARepo")
+    @Test(groups = {"search1"}, description = "Search for QARepo")
     public void searchForQARepo() {
         webActions = new GoogleActions();
         webActions.typeText(GoogleElements.textBox_Search(), "qarepo", "aria-label");
-        webActions.clickElement(GoogleElements.button_GoogleSearch(), "*");
+        webActions.clickElement(GoogleElements.button_GoogleSearch(), "href");
         String text = webActions.getElementText(GoogleElements.text_Header_QaRepo(), "*");
         Assert.assertEquals(text, "qarepo (@qarepo) | Twitter");
     }
@@ -41,7 +41,7 @@ public class GoogleTests {
     public void clickQARepoSearchResult() {
       GoogleActions webActions = new GoogleActions();
         searchForQARepo();
-        webActions.clickElement(GoogleElements.text_Header_QaRepo(), "*");
+        webActions.clickElement(GoogleElements.text_Header_QaRepo(), "href");
         String currentUrl = WebDriverThreadManager.getDriver().getCurrentUrl();
         Assert.assertEquals(currentUrl, "https://twitter.com/qarepo");
     }
@@ -49,7 +49,7 @@ public class GoogleTests {
     @Test(groups = {"sign-in"}, description = "Sign in, wrong password error displays")
     public void signInWrongPasswordErrorDisplays() {
         webActions = new GoogleActions();
-        webActions.clickElement(GoogleElements.button_SignIn(), "text");
+        webActions.clickElement(GoogleElements.button_SignIn(), "href");
         webActions.login(GOOGLE_USERNAME, GOOGLE_PSWD);
 
         String errorText = webActions.getElementText(GoogleElements.text_WrongPassword(), "jsname");
