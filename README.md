@@ -4,26 +4,13 @@
 
 #  QARepo Core Framework (QCF)
 
-QARepo core framework(QCF...pronounced cough) is Java-based framework that aims to simplify automated functional, UI and regression testing. QCF takes an opinionated approach to test automation and is designed to provide developers and testers the ability to easily tests web applications. 
-
-QCF acts a wrapper on top of [Selenium WebDriver](https://github.com/SeleniumHQ/selenium/tree/master/java/client/src/org/openqa/selenium) and uses [TestNG](https://testng.org/doc/) testing framework. QCF is OS neutral and runs on Mac, Windows, and Linux.
+QARepo core framework(QCF...pronounced cough) is Java-based framework that aims to simplify automated functional, UI and regression testing. QCF takes an opinionated approach to test automation and is designed to provide developers and testers the ability to easily tests web applications. QCF acts a wrapper on top of [Selenium WebDriver](https://github.com/SeleniumHQ/selenium/tree/master/java/client/src/org/openqa/selenium) and uses [TestNG](https://testng.org/doc/) testing framework. QCF is OS neutral and runs on Mac, Windows, and Linux.
 It manages local WebDriver binaries via [WebDriverManager](https://github.com/bonigarcia/webdrivermanager/) and remote WebDrivers via SeleniumHQ's docker images. QARepo core is containerize using Docker and will run on any operating system or browser. 
 
 The framework is developer-centric and features the ability to run tests in the cloud, via Docker containers or locally. QCF has various tools and utilities for managing common test actions (e.g. window handling, alerts, Data Provider, file readers etc.).  QCF currently manages reporting using Lo4j2 but we are currently working on rich HTML reports.
 QCF is loved by its developers and so [contact us](#Issues or Need help?) with questions. Happy testing!
 
-
 ---
-### Table of contents
-* [Maven Dependency](#Maven Dependency)
-* [Basic Usage](#Basic Usage)
-* [Running Test Suite](#Running TestNG Suite)
-    - [Docker Image](#Using Docker Image)
-    - [Executable Jar](#Using Shaded Executable jar)
-    - [TestNG and Maven](#Using testng.xml and maven)
-* [Need Help?](#Issues or Need help?)
-
- ----------------------------------
    
 ## Maven Dependency 
   ```
