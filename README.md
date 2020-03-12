@@ -8,7 +8,7 @@ QARepo core framework(QCF...pronounced cough) is Java-based framework that aims 
 It manages local WebDriver binaries via [WebDriverManager](https://github.com/bonigarcia/webdrivermanager/) and remote WebDrivers via SeleniumHQ's docker images. QARepo core is containerize using Docker and will run on any operating system or browser. 
 
 The framework is developer-centric and features the ability to run tests in the cloud, via Docker containers or locally. QCF has various tools and utilities for managing common test actions (e.g. window handling, alerts, Data Provider, file readers etc.).  QCF currently manages reporting using Lo4j2 but we are currently working on rich HTML reports.
-QCF is loved by its developers and so [contact us](#Issues or Need help?) with questions. Happy testing!
+QCF is loved by its developers and so [contact us](#issues-or-need-help) with questions. Happy testing!
 
 ---
    
