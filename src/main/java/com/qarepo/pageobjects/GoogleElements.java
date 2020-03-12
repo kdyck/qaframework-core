@@ -59,4 +59,12 @@ public class GoogleElements {
     public static By button_SignIn() {
         return By.xpath("//a[contains (@href, 'accounts.google.')]");
     }
+
+    public static By button_SignOut() {
+        return By.xpath("//a[contains (@href, 'accounts.google.com/Logout')]");
+    }
+
+    public static By button_GoogleAcct() {
+        return By.xpath("//a[contains (@aria-label, '@gmail')]//span");
+    }
 }

@@ -17,20 +17,20 @@
  */
 package com.qarepo.tests;
 
-import com.qarepo.actions.GlobalWebActions;
+import com.qarepo.actions.GoogleActions;
 import com.qarepo.driver.WebDriverThreadManager;
 import com.qarepo.pageobjects.GoogleElements;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class GoogleTests {
-    GlobalWebActions webActions;
+    GoogleActions webActions;
     private static final String GOOGLE_USERNAME = "qarepo.com@gmail.com";
-    private static final String GOOGLE_PSWD = "rand0mpassworD";
+    private static final String GOOGLE_PSWD = "rand0mXYZ123passworD";
 
     @Test(groups = {"search"}, description = "Search for QARepo")
     public void searchForQARepo() {
-        webActions = new GlobalWebActions();
+        webActions = new GoogleActions();
         webActions.typeText(GoogleElements.textBox_Search(), "qarepo", "aria-label");
         webActions.clickElement(GoogleElements.button_GoogleSearch(), "*");
         String text = webActions.getElementText(GoogleElements.text_Header_QaRepo(), "*");
@@ -39,7 +39,7 @@ public class GoogleTests {
 
     @Test(groups = {"search"}, description = "Click one search result")
     public void clickQARepoSearchResult() {
-        webActions = new GlobalWebActions();
+      GoogleActions webActions = new GoogleActions();
         searchForQARepo();
         webActions.clickElement(GoogleElements.text_Header_QaRepo(), "*");
         String currentUrl = WebDriverThreadManager.getDriver().getCurrentUrl();
@@ -48,9 +48,9 @@ public class GoogleTests {
 
     @Test(groups = {"sign-in"}, description = "Sign in, wrong password error displays")
     public void signInWrongPasswordErrorDisplays() {
-        webActions = new GlobalWebActions();
+        webActions = new GoogleActions();
         webActions.clickElement(GoogleElements.button_SignIn(), "text");
-        webActions.googleSignIn(GOOGLE_USERNAME, GOOGLE_PSWD);
+        webActions.login(GOOGLE_USERNAME, GOOGLE_PSWD);
 
         String errorText = webActions.getElementText(GoogleElements.text_WrongPassword(), "jsname");
         Assert.assertEquals(errorText, "Wrong password. Try again or click Forgot password to reset it.");

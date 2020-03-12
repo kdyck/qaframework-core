@@ -17,9 +17,9 @@
             <package name="com.qarepo.*" />
         </packages>
     </test>
-    <test name="Sample Site - Generic JSoup Tests - Production - Chrome">
-        <parameter name="browser" value="Chrome Docker"/>
-        <parameter name="URL" value="https://arstechnica.com/"/>
+    <test name="Example - Site Links - Chrome Headless">
+        <parameter name="browser" value="Google Chrome Headless"/>
+        <parameter name="URL" value="http://qcf.qarepo.com/"/>
         <groups>
             <run>
                 <include name="site-links"/>
