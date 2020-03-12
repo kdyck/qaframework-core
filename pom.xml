@@ -2,14 +2,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <name>QARepo Framework Core </name>
+    <name>QARepo Core Framework</name>
     <description>
-        Test framework that aims to simply the setup and maintenance Selenium WebDriver tests for Java.
+        QARepo core framework(QCF...pronounced cough) is Java-based test framework for web applications.
     </description>
-    <url>https://github.com/kdyck/qaframework-core</url>
+    <url>http://qcf.qarepo.com/</url>
 
     <groupId>com.qarepo</groupId>
-    <artifactId>qaframework-core</artifactId>
+    <artifactId>core-framework</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
