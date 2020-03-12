@@ -11,11 +11,11 @@ It features a DriverFactory, threadsafe WebDrivers for parallel test runs, WebDr
 
 ### Table of contents
 * [QARepo-Core as Maven dependency](#Maven)
-* [Basic Usage]()
-* [Running TestNG Test Suite](#Running TestNG Suite)
-    - [Using Docker Image](#Using Docker Image)
-    - [Using Shaded Executable jar](#Using Shaded Executable jar)
-    - [Using testng.xml and maven](#Using testng.xml and maven)
+* [Basic Usage](#Basic Usage)
+* [Running Test Suite](#Running TestNG Suite)
+    - [Docker Image](#Using Docker Image)
+    - [Executable Jar](#Using Shaded Executable jar)
+    - [TestNG and Maven](#Using testng.xml and maven)
 * [Technologies](#technologies)
 * [Properties](#properties)
 * [Need Help](#need-help)

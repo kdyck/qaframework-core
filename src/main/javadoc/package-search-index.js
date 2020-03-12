@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.qarepo.driver"},{"l":"com.qarepo.driver.proxy"},{"l":"com.qarepo.driver.useragent"},{"l":"com.qarepo.testdata"},{"l":"com.qarepo.utils"}]
