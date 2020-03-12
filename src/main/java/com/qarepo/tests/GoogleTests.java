@@ -20,11 +20,23 @@ package com.qarepo.tests;
 import com.qarepo.actions.GoogleActions;
 import com.qarepo.driver.WebDriverThreadManager;
 import com.qarepo.pageobjects.GoogleElements;
+import com.qarepo.testdata.DataGenerator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class GoogleTests {
     GoogleActions webActions;
+    private static final Logger LOGGER = LogManager.getLogger(LinkTests.class);
+    private static StringWriter sw = new StringWriter();
     private static final String GOOGLE_USERNAME = "qarepo.com@gmail.com";
     private static final String GOOGLE_PSWD = "rand0mXYZ123passworD";
 
@@ -55,6 +67,32 @@ public class GoogleTests {
             boolean isEqual = errorText.equalsIgnoreCase("Wrong password. Try again or click Forgot password to reset it.")
                 || errorText.equalsIgnoreCase("This browser or app may not be secure. Learn more") ? true : false;
         Assert.assertTrue(isEqual, errorText);
+    }
+
+    @Test(groups = {"site-links"},
+            dataProvider = "getLinksFromCSV"
+            , dataProviderClass = DataGenerator.class
+            , description = "Click links and verify success/redirect response")
+    public void clickSiteLinks(String... params) {
+        SoftAssert softAssert = new SoftAssert();
+        URL url;
+        try {
+            url = new URL(params[1]);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            int responseCode = conn.getResponseCode();
+            LOGGER.debug("[URL: " + params[1] + "] [Response Code: " + responseCode + "]");
+            if (responseCode == 200) {
+                softAssert.assertEquals(200, responseCode);
+            } else if (responseCode == 301) {
+                softAssert.assertEquals(301, responseCode);
+            } else {
+                softAssert.fail("[URL: " + params[1] + "] [Response Code: " + responseCode + "]");
+            }
+        } catch (IOException e) {
+            e.printStackTrace(new PrintWriter(sw));
+            LOGGER.error(sw.toString());
+        }
+        softAssert.assertAll();
     }
 
 }

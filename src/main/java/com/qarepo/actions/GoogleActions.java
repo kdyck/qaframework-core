@@ -21,6 +21,7 @@ import com.qarepo.driver.WebDriverThreadManager;
 import com.qarepo.pageobjects.GoogleElements;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 
 /**
  * @since 1.0.0
@@ -60,4 +61,5 @@ public class GoogleActions implements CommonActions, UserAccessActions {
         clickElement(GoogleElements.button_GoogleAcct(), "class");
         clickElement(GoogleElements.button_SignOut(), "href");
     }
+
 }
