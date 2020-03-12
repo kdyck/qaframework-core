@@ -27,8 +27,8 @@ Managing WebDrivers, parallel test execution and threading can be difficult. QCF
 This project includes a few sample tests that you can run locally using WebDriverManager binaries or via Docker containers. Review the [Running TestNG Suite](#Running TestNG Suite) for details. 
 
 * _TestNG config files are located in directory /src/main/resources/test-configs/_
-   ++ **Docker conf**: docker-testng.xml
-   ++ **TestNG conf**: testng.xml
+   * **Docker conf**: docker-testng.xml
+   * **TestNG conf**: testng.xml
 
 ## Running TestNG Suite
 
