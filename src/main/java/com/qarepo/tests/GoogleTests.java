@@ -28,7 +28,7 @@ public class GoogleTests {
     private static final String GOOGLE_USERNAME = "qarepo.com@gmail.com";
     private static final String GOOGLE_PSWD = "rand0mXYZ123passworD";
 
-    @Test(groups = {"search1"}, description = "Search for QARepo")
+    @Test(groups = {"search"}, description = "Search for QARepo")
     public void searchForQARepo() {
         webActions = new GoogleActions();
         webActions.typeText(GoogleElements.textBox_Search(), "qarepo", "aria-label");
@@ -51,9 +51,10 @@ public class GoogleTests {
         webActions = new GoogleActions();
         webActions.clickElement(GoogleElements.button_SignIn(), "href");
         webActions.login(GOOGLE_USERNAME, GOOGLE_PSWD);
-
         String errorText = webActions.getElementText(GoogleElements.text_WrongPassword(), "jsname");
-        Assert.assertEquals(errorText, "Wrong password. Try again or click Forgot password to reset it.");
+            boolean isEqual = errorText.equalsIgnoreCase("Wrong password. Try again or click Forgot password to reset it.")
+                || errorText.equalsIgnoreCase("This browser or app may not be secure. Learn more") ? true : false;
+        Assert.assertTrue(isEqual, errorText);
     }
 
 }

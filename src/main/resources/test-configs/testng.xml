@@ -4,25 +4,14 @@
     <listeners>
         <listener class-name="com.qarepo.TestNGListener"/>
     </listeners>
-    <test name="Example - Google Search and Sign-in - Chrome">
-        <parameter name="browser" value="Google Chrome"/>
+    <test name="Example - Sample Tests: Google Search and Sign-in, Link checks">
+        <parameter name="browser" value="Google Chrome"/> <!-- Change to run different browsers, e.g. value="Google Chrome Headless"" -->
         <parameter name="URL" value="https://www.google.com/"/>
         <groups>
             <run>
                 <include name="search"/>
                 <include name="sign-in"/>
-            </run>
-        </groups>
-        <packages>
-            <package name="com.qarepo.*" />
-        </packages>
-    </test>
-    <test name="Example - Site Links - Chrome Headless">
-        <parameter name="browser" value="Google Chrome Headless"/>
-        <parameter name="URL" value="http://qcf.qarepo.com/"/>
-        <groups>
-            <run>
-                <include name="site-links"/>
+                <exclude name="site-links"/>
             </run>
         </groups>
         <packages>

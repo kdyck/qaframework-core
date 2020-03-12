@@ -37,7 +37,7 @@ public class GoogleElements {
     }
 
     public static By text_WrongPassword() {
-        return By.xpath("//div/span[contains (text(), 'Wrong')]");
+        return By.xpath("//div/span[contains (text(), 'Wrong')]|//div[contains (text(), 'This browser or app may not be secure')]");
     }
 
     public static By textBox_Search() {
