@@ -2,6 +2,7 @@
 [![License badge](https://img.shields.io/badge/license-Apache2-green.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Twitter Follow](https://img.shields.io/twitter/follow/qarepo.svg?style=social)](https://twitter.com/qarepo)
 
+
 #  QARepo Core Framework (QCF)
 
 QARepo core framework(QCF...pronounced cough) is Java-based framework that aims to simplify automated functional, UI and regression testing. QCF takes an opinionated approach to test automation and is designed to provide developers and testers the ability to easily tests web applications. QCF acts a wrapper on top of [Selenium WebDriver](https://github.com/SeleniumHQ/selenium/tree/master/java/client/src/org/openqa/selenium) and uses [TestNG](https://testng.org/doc/) testing framework. QCF is OS neutral and runs on Mac, Windows, and Linux.
