@@ -12,8 +12,17 @@ The framework is developer-centric and features the ability to run tests in the 
 QCF is work in progress but its a labor-of-love. [Drop us a line](#issues-or-need-help) if you have questions or suggestions. _Happy testing!_
 
 ---
+
+## Basic Usage
+
+Managing WebDrivers, parallel test execution and threading can be difficult. QCF features a DriverFactory, threadsafe WebDriver instances and parallel test execution. 
+The quickest way to get start with QARepo QCF is with the maven dependency. Right now the project is available as SNAPSHOT only. A stable build will be available in the coming weeks.   
+
+If you're just curious about how to run tests, the project includes a few sample tests, see the [Running Tests](#Running TestNG Suite) section for details. 
+Review the [Running TestNG Suite](#Running TestNG Suite) for details. 
+  
    
-## Maven Dependency 
+### Maven Dependency 
   ```
     <dependency>
        <groupId>com.qarepo</groupId>
@@ -22,18 +31,14 @@ QCF is work in progress but its a labor-of-love. [Drop us a line](#issues-or-nee
     </dependency>
   ```
 
-## Basic Usage
-
-Managing WebDrivers, parallel test execution and threading can be difficult. QCF features a DriverFactory, threadsafe WebDriver instances and parallel test execution. 
-This project includes a few sample tests that you can run locally using WebDriverManager binaries or via Docker containers. Review the [Running TestNG Suite](#Running TestNG Suite) for details. 
-
-* _TestNG config files are located in directory /src/main/resources/test-configs/_
-   * **Docker conf**: docker-testng.xml
-   * **TestNG conf**: testng.xml
-
 ## Running TestNG Suite
 
 Below are details on how to run this test suite and the sample tests. You can run the tests using Docker, shaded executable Jar or locally from an IDE or command line.
+ 
+* _TestNG config files are located in directory /src/main/resources/test-configs/_
+   * **Docker conf**: docker-testng.xml
+   * **TestNG conf**: testng.xml
+   
  
 #### Using Docker Image
 1. Build docker-compose and start services: _(Dockerized TestNG suite service use stand-alone chrome from Selenium)_
