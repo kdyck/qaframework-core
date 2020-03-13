@@ -16,9 +16,9 @@ QCF is work in progress but its a labor-of-love. [Drop us a line](#issues-or-nee
 ## Basic Usage
 
 Managing WebDrivers, parallel test execution and threading can be difficult. QCF features a DriverFactory, threadsafe WebDriver instances and parallel test execution. 
-The quickest way to get start with QARepo QCF is with the maven dependency. Right now the project is available as SNAPSHOT only. A stable build will be available in the coming weeks.   
+The quickest way to get started with QARepo QCF is with the maven dependency. Right now the project is available as SNAPSHOT only. A stable build will be available in the coming weeks.   
 
-If you're just curious about how to run tests, the project includes a few sample tests, see the [Running Tests](#Running TestNG Suite) section for details. 
+If you're just curious about how to run tests, the project includes a few sample tests, see the [running testng suite](#running-testng-suite) section for details. 
 Review the [Running TestNG Suite](#Running TestNG Suite) for details. 
   
    
