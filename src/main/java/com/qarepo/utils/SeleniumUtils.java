@@ -17,8 +17,8 @@
  */
 package com.qarepo.utils;
 
+import com.qarepo.driver.WebDriverActions;
 import com.qarepo.driver.WebDriverThreadManager;
-import com.qarepo.driver.WebDriverWaits;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,7 +42,7 @@ import java.time.temporal.TemporalAmount;
 public final class SeleniumUtils {
     private static final Logger LOGGER = LogManager.getLogger(SeleniumUtils.class);
     private static String driverHash = "[WebDriver Hash: " + WebDriverThreadManager.getDriver()
-                                                                                   .hashCode() + "] ";
+            .hashCode() + "] ";
     private static StringWriter sw = new StringWriter();
     private static FluentWait<WebDriver> wait;
 
@@ -153,7 +153,7 @@ public final class SeleniumUtils {
         for (final String subWindow : WebDriverThreadManager.getDriver().getWindowHandles()) {
             WebDriverThreadManager.getDriver().switchTo().window(subWindow);
             if (!WebDriverThreadManager.getDriver().getWindowHandle().contentEquals(parentWindow)) {
-                WebDriverWaits.waitForUrl(expectedURL);
+                WebDriverActions.waitForUrl(expectedURL);
                 currentURL = WebDriverThreadManager.getDriver().getCurrentUrl();
                 WebDriverThreadManager.getDriver().close();
             }
@@ -174,27 +174,26 @@ public final class SeleniumUtils {
         WebDriverWait wait = new WebDriverWait(WebDriverThreadManager.getDriver(), timeOutInSeconds);
         String currentURL = null;
         String parentWindow = WebDriverThreadManager.getDriver()
-                                                    .getWindowHandle();
+                .getWindowHandle();
         try {
             for (final String subWindow : WebDriverThreadManager.getDriver()
-                                                                .getWindowHandles()) {
+                    .getWindowHandles()) {
                 WebDriverThreadManager.getDriver()
-                                      .switchTo()
-                                      .window(subWindow);
-                if (WebDriverThreadManager.getDriver()
-                                          .getWindowHandle()
-                                          .contentEquals(parentWindow)) {
-                } else {
+                        .switchTo()
+                        .window(subWindow);
+                if (!WebDriverThreadManager.getDriver()
+                        .getWindowHandle()
+                        .contentEquals(parentWindow)) {
                     wait.until(ExpectedConditions.urlContains(expectedURL));
                     currentURL = WebDriverThreadManager.getDriver()
-                                                       .getCurrentUrl();
+                            .getCurrentUrl();
                     WebDriverThreadManager.getDriver()
-                                          .close();
+                            .close();
                 }
             }
             WebDriverThreadManager.getDriver()
-                                  .switchTo()
-                                  .window(parentWindow);
+                    .switchTo()
+                    .window(parentWindow);
         } catch (Exception e) {
             return e.toString();
         }
@@ -213,21 +212,20 @@ public final class SeleniumUtils {
         String currentURL = null;
         try {
             String parentWindow = WebDriverThreadManager.getDriver()
-                                                        .getWindowHandle();
+                    .getWindowHandle();
             for (final String subWindow : WebDriverThreadManager.getDriver()
-                                                                .getWindowHandles()) {
+                    .getWindowHandles()) {
                 WebDriverThreadManager.getDriver()
-                                      .switchTo()
-                                      .window(subWindow);
-                if (WebDriverThreadManager.getDriver()
-                                          .getWindowHandle()
-                                          .contentEquals(parentWindow)) {
-                } else {
+                        .switchTo()
+                        .window(subWindow);
+                if (!WebDriverThreadManager.getDriver()
+                        .getWindowHandle()
+                        .contentEquals(parentWindow)) {
                     wait.until(ExpectedConditions.urlContains(expectedURL));
                     currentURL = WebDriverThreadManager.getDriver()
-                                                       .getCurrentUrl();
+                            .getCurrentUrl();
                     WebDriverThreadManager.getDriver()
-                                          .close();
+                            .close();
                 }
             }
         } catch (Exception e) {
@@ -242,9 +240,9 @@ public final class SeleniumUtils {
     public static void rejectAlert() {
         LOGGER.info(driverHash + "Click alert 'OK' button");
         WebDriverThreadManager.getDriver()
-                              .switchTo()
-                              .alert()
-                              .accept();
+                .switchTo()
+                .alert()
+                .accept();
     }
 
     /**
@@ -253,42 +251,43 @@ public final class SeleniumUtils {
     public static void acceptAlert() {
         LOGGER.info(driverHash + "Click alert 'Cancel' button");
         WebDriverThreadManager.getDriver()
-                              .switchTo()
-                              .alert()
-                              .dismiss();
+                .switchTo()
+                .alert()
+                .dismiss();
     }
 
     /**
      * calls {@link String} getText() to capture the alert message.
      *
-     * @return {@link String} of alert text.
      * @param polling polling interval
      * @param timeout timeout after polling
+     * @return {@link String} of alert text.
      */
     public static String getAlertText(long timeout, long polling) {
         wait = new FluentWait<>(WebDriverThreadManager.getDriver());
         wait.withTimeout(Duration.ofSeconds(timeout))
-            .pollingEvery(Duration.ofSeconds(polling))
-            .ignoring(WebDriverException.class)
-            .until(ExpectedConditions.alertIsPresent());
+                .pollingEvery(Duration.ofSeconds(polling))
+                .ignoring(WebDriverException.class)
+                .until(ExpectedConditions.alertIsPresent());
         String alertText = WebDriverThreadManager.getDriver()
-                                                 .switchTo()
-                                                 .alert()
-                                                 .getText();
+                .switchTo()
+                .alert()
+                .getText();
         LOGGER.info(driverHash + "Alert text: [" + alertText + "]");
         return alertText;
     }
 
     /**
      * calls void sendKeys() to enter text in alert
+     *
      * @param textToSend alert text to send
      */
     public static void sendTextToAlert(String textToSend) {
         LOGGER.info(driverHash + "Text to alert: [" + textToSend + "]");
         WebDriverThreadManager.getDriver()
-                              .switchTo()
-                              .alert()
-                              .sendKeys(textToSend);
+                .switchTo()
+                .alert()
+                .sendKeys(textToSend);
     }
 
 

@@ -17,17 +17,11 @@
  */
 package com.qarepo.driver;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -40,21 +34,19 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /*
  * @since 1.0.0
  */
-public class DriverFactory {
+public final class DriverFactory {
     private static final Logger LOGGER = LogManager.getLogger(DriverFactory.class);
     private static final String BROWSERSTACK_USERNAME = "change-me";
     private static final String BROWSERSTACK_AUTOMATE_KEY = "change-me";
     private static final String BROWSERSTACK_URL = "https://" + BROWSERSTACK_USERNAME + ":" + BROWSERSTACK_AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
     private static final String DOCKER_CHROME_DRIVER_URL = "http://chrome:4444/wd/hub";
 
-    public static WebDriver createDriverInstance(final String browser, final String downloadPath) {
+    protected static WebDriver createDriverInstance(final String browser, final String downloadPath) {
         StringWriter sw = new StringWriter();
         WebDriver driver = null;
         RemoteWebDriver remoteWebDriver = null;
@@ -94,34 +86,10 @@ public class DriverFactory {
                 options.addArguments("--headless");
                 options.addArguments("--no-sandbox");
                 options.addArguments("--lang=en");
-                HashMap<String, Object> chromePrefs = new HashMap<>();
-                chromePrefs.put("profile.default_content_settings.popups", 0);
-                chromePrefs.put("download.default_directory", downloadPath);
-                options.setExperimentalOption("prefs", chromePrefs);
-
-                final ChromeDriverService driverService = new ChromeDriverService.Builder()
-                        .usingPort(4444)
-                        .withWhitelistedIps("")
-                        .build();
-                ChromeDriver driver1 = new ChromeDriver(driverService, options);
-                Map<String, Object> commandParams = new HashMap<>();
-                commandParams.put("cmd", "Page.setDownloadBehavior");
-                Map<String, String> params = new HashMap<>();
-                params.put("behavior", "allow");
-                params.put("downloadPath", downloadPath);
-                commandParams.put("params", params);
-                ObjectMapper objectMapper = new ObjectMapper();
-                HttpClient httpClient = HttpClientBuilder.create().build();
-                String command = objectMapper.writeValueAsString(commandParams);
-                String url = driverService.getUrl()
-                                          .toString() + "/session/" + driver1.getSessionId() + "/chromium/send_command";
-                HttpPost request = new HttpPost(url);
-                request.addHeader("content-type", "application/json");
-                request.setEntity(new StringEntity(command));
-                httpClient.execute(request);
-                driver1.manage().window().maximize();
-                driver1.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-                return driver1;
+                driver = new ChromeDriver(options);
+                driver.manage().window().maximize();
+                driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+                return driver;
             } catch (Exception e) {
                 e.printStackTrace(new PrintWriter(sw));
                 LOGGER.error(sw.toString());

@@ -19,7 +19,8 @@ package com.qarepo.driver.proxy;
 
 import com.qarepo.driver.WebDriverRunner;
 import com.qarepo.driver.WebDriverThreadManager;
-import com.qarepo.driver.WebDriverWaits;
+import com.qarepo.driver.WebDriverActions;
+import com.qarepo.driver.webelement.WebElementDetails;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -41,8 +42,8 @@ import java.util.stream.Collectors;
  * for the {@link ProxyFinder} interface. The methods in this class are used for obtaining proxy
  * Host IP Address(es) and Port(s) from https://free-proxy-list.net/ by {@link FreeProxyListElements} locators.
  * <br>
- * The {@link #getProxyList()} method utilizes {@link WebDriverWaits} FluentWaits {@link WebDriverWaits#findElementWithClickableWait(By)}
- * and {@link WebDriverWaits#findElementWithVisibilityWait(By)} method utils for polling and timeouts.
+ * The {@link #getProxyList()} method utilizes {@link WebDriverActions} FluentWaits and
+ * {@link WebDriverActions#findElementWithWait(By)} method utils for polling and timeouts.
  * Each method waits 10s with 1s polling, if a specified element is found in document the action is executed.
  * Calling {@link #getRandomProxy()} is a simple way to obtain a random {@link Proxy} with a valid connection.
  * </p>
@@ -105,13 +106,13 @@ public class SeleniumProxyService implements ProxyFinder {
             WebDriverThreadManager.getDriver().get(url);
             setProtocol();
             proxyList = new ArrayList<>();
-            List<String> ipAddresses = WebDriverWaits.findElementsWithWait(FreeProxyListElements.list_IpAddresses())
+            List<String> ipAddresses = WebDriverActions.findElementsWithWait(FreeProxyListElements.list_IpAddresses())
                                                      .stream()
-                                                     .map(WebElement::getText)
+                                                     .map(WebElementDetails::getText)
                                                      .collect(Collectors.toList());
-            List<String> ports = WebDriverWaits.findElementsWithWait(FreeProxyListElements.list_Ports())
+            List<String> ports = WebDriverActions.findElementsWithWait(FreeProxyListElements.list_Ports())
                                                .stream()
-                                               .map(WebElement::getText)
+                                               .map(WebElementDetails::getText)
                                                .collect(Collectors.toList());
             if (ipAddresses.size() == ports.size()) {
                 for (int i = 0; i < ipAddresses.size(); i++) {
@@ -133,7 +134,7 @@ public class SeleniumProxyService implements ProxyFinder {
      */
     private void setProtocol() {
         LOGGER.info("Select HTTPS filter option: 'yes'");
-        WebDriverWaits.findElementWithClickableWait(FreeProxyListElements.dropDown_FilterHttps()).click();
+        WebDriverActions.findElementWithWait(FreeProxyListElements.dropDown_FilterHttps()).getWebElement().click();
     }
 
     /**

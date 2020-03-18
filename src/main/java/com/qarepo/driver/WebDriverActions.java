@@ -17,6 +17,8 @@
  */
 package com.qarepo.driver;
 
+import com.qarepo.driver.webelement.WebElementDetails;
+import com.qarepo.driver.webelement.WebElementService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,85 +28,47 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
  * @since 1.0.0
  */
-public class WebDriverWaits {
-    private static final Logger LOGGER = LogManager.getLogger(WebDriverWaits.class);
+public class WebDriverActions {
+    private static final Logger LOGGER = LogManager.getLogger(WebDriverActions.class);
     private static final int DEFAULT_WAIT = 10;
     private static final int DEFAULT_POLLING = 1;
     private static FluentWait<WebDriver> wait;
+    private static WebElementService webElementService = new WebElementService();
+    private static String driverHash = "[WebDriver Hash: " + WebDriverThreadManager.getDriver()
+            .hashCode() + "] ";
 
-    public static WebElement findElementWithWait(By by, long timeout, long polling) {
+    public static WebElementDetails findElementWithWait(By by, long timeout, long polling) {
         WebDriver driver = WebDriverThreadManager.getDriver();
         wait = new FluentWait<>(driver);
         wait.withTimeout(Duration.ofSeconds(timeout)).pollingEvery(Duration.ofSeconds(polling))
-            .ignoring(WebDriverException.class).until(e -> driver.findElement(by));
-        return driver.findElement(by);
+                .ignoring(WebDriverException.class).until(e -> driver.findElement(by));
+        WebElementDetails webElementDetails = webElementService.extractElementDetails(driver.findElement(by));
+        LOGGER.info(driverHash + webElementDetails.toString());
+        return webElementDetails;
     }
 
-    public static WebElement findElementWithWait(By by) {
+    public static WebElementDetails findElementWithWait(By by) {
         return findElementWithWait(by, DEFAULT_WAIT, DEFAULT_POLLING);
     }
 
-    public static WebElement findElementWithClickableWait(By by, long timeout, long polling) {
+    public static List<WebElementDetails> findElementsWithWait(By by, long timeout, long polling) {
         WebDriver driver = WebDriverThreadManager.getDriver();
         wait = new FluentWait<>(driver);
         wait.withTimeout(Duration.ofSeconds(timeout)).pollingEvery(Duration.ofSeconds(polling))
-            .ignoring(WebDriverException.class).until(ExpectedConditions.elementToBeClickable(by));
-        return driver.findElement(by);
+                .ignoring(WebDriverException.class).until(e -> driver.findElement(by));
+        List<WebElementDetails> webElementDetailsList = driver.findElements(by).stream()
+                .map(e -> webElementService.extractElementDetails(e))
+                .collect(Collectors.toList());
+        webElementDetailsList.forEach(e -> LOGGER.info(driverHash + e.toString()));
+        return webElementDetailsList;
     }
 
-    public static WebElement findElementWithClickableWait(By by) {
-        return findElementWithClickableWait(by, DEFAULT_WAIT, DEFAULT_POLLING);
-    }
-
-    public static void findElementWithInvisibilityWait(By by, long timeout, long polling) {
-        WebDriver driver = WebDriverThreadManager.getDriver();
-        wait = new FluentWait<>(driver);
-        wait.withTimeout(Duration.ofSeconds(timeout))
-            .pollingEvery(Duration.ofSeconds(polling))
-            .until(ExpectedConditions.invisibilityOfElementLocated(by));
-    }
-
-    public static void findElementWithInvisibilityWait(By by) {
-        findElementWithInvisibilityWait(by, DEFAULT_WAIT, DEFAULT_POLLING);
-    }
-
-    public static WebElement findElementWithVisibilityWait(By by, long timeout, long polling) {
-        WebDriver driver = WebDriverThreadManager.getDriver();
-        wait = new FluentWait<>(driver);
-        wait.withTimeout(Duration.ofSeconds(timeout)).pollingEvery(Duration.ofSeconds(polling))
-            .ignoring(WebDriverException.class).until(ExpectedConditions.visibilityOfElementLocated(by));
-        return driver.findElement(by);
-    }
-
-    public static WebElement findElementWithVisibilityWaitWithoutException(By by, long timeout, long polling) {
-        WebDriver driver = WebDriverThreadManager.getDriver();
-        wait = new FluentWait<>(driver);
-        wait.withTimeout(Duration.ofSeconds(timeout)).pollingEvery(Duration.ofSeconds(polling))
-            .ignoring(WebDriverException.class).until(ExpectedConditions.visibilityOfElementLocated(by));
-        try {
-            return driver.findElement(by);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public static WebElement findElementWithVisibilityWait(By by) {
-        return findElementWithVisibilityWait(by, 10, DEFAULT_POLLING);
-    }
-
-    public static List<WebElement> findElementsWithWait(By by, long timeout, long polling) {
-        WebDriver driver = WebDriverThreadManager.getDriver();
-        wait = new FluentWait<>(driver);
-        wait.withTimeout(Duration.ofSeconds(timeout)).pollingEvery(Duration.ofSeconds(polling))
-            .ignoring(WebDriverException.class).until(e -> driver.findElement(by));
-        return driver.findElements(by);
-    }
-
-    public static List<WebElement> findElementsWithWait(By by) {
+    public static List<WebElementDetails> findElementsWithWait(By by) {
         return findElementsWithWait(by, 10, DEFAULT_POLLING);
     }
 
@@ -112,9 +76,9 @@ public class WebDriverWaits {
         WebDriver driver = WebDriverThreadManager.getDriver();
         wait = new FluentWait<>(driver);
         wait.withTimeout(Duration.ofSeconds(timeout))
-            .pollingEvery(Duration.ofSeconds(polling))
-            .ignoring(WebDriverException.class)
-            .until(ExpectedConditions.textToBePresentInElementLocated(by, textContains));
+                .pollingEvery(Duration.ofSeconds(polling))
+                .ignoring(WebDriverException.class)
+                .until(ExpectedConditions.textToBePresentInElementLocated(by, textContains));
         return driver.findElement(by);
     }
 
@@ -126,7 +90,7 @@ public class WebDriverWaits {
         WebDriver driver = WebDriverThreadManager.getDriver();
         wait = new FluentWait<>(driver);
         wait.withTimeout(Duration.ofSeconds(timeout)).pollingEvery(Duration.ofSeconds(polling))
-            .ignoring(WebDriverException.class).until(ExpectedConditions.urlContains(expectedURL));
+                .ignoring(WebDriverException.class).until(ExpectedConditions.urlContains(expectedURL));
     }
 
     public static void waitForUrl(String expectedURL) {
@@ -139,7 +103,7 @@ public class WebDriverWaits {
                 WebDriver driver = WebDriverThreadManager.getDriver();
                 wait = new FluentWait<>(driver);
                 wait.withTimeout(Duration.ofSeconds(timeout)).pollingEvery(Duration.ofSeconds(polling))
-                    .ignoring(WebDriverException.class).until(ExpectedConditions.elementToBeClickable(by));
+                        .ignoring(WebDriverException.class).until(ExpectedConditions.elementToBeClickable(by));
                 WebDriverThreadManager.getDriver().findElement(by).click();
                 break;
             } catch (ElementClickInterceptedException e) {

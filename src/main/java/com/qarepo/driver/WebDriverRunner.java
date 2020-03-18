@@ -25,7 +25,7 @@ import org.openqa.selenium.WebDriver;
 /*
  * @since 1.0.0
  */
-public class WebDriverRunner implements WebDriverRunnable {
+public final class WebDriverRunner implements WebDriverRunnable {
     private static final Logger LOGGER = LogManager.getLogger(WebDriverRunner.class);
 
     @Override

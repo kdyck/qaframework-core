@@ -19,7 +19,8 @@ package com.qarepo.driver.useragent;
 
 import com.qarepo.driver.WebDriverRunner;
 import com.qarepo.driver.WebDriverThreadManager;
-import com.qarepo.driver.WebDriverWaits;
+import com.qarepo.driver.WebDriverActions;
+import com.qarepo.driver.webelement.WebElementDetails;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -67,9 +68,9 @@ public class SeleniumUserAgentService {
     }
 
     public List<String> getUserAgentList() {
-        return WebDriverWaits.findElementsWithWait(By.xpath("//td/a"))
+        return WebDriverActions.findElementsWithWait(By.xpath("//td/a"))
                              .stream()
-                             .map(WebElement::getText)
+                             .map(WebElementDetails::getText)
                              .collect(Collectors.toList());
     }
 

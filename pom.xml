@@ -22,9 +22,8 @@
         <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
 
-        <wdm.mainClass>com.qarepo.TestNGRunner</wdm.mainClass>
+     <!--   <wdm.mainClass>com.qarepo.TestNGRunner</wdm.mainClass>-->
     </properties>
-
 
     <developers>
         <developer>
@@ -49,7 +48,7 @@
 
     <scm>
         <connection>scm:git:git://github.com/kdyck/qarepo-core-framework.git</connection>
-        <url>https://github.com/kdyck/qarepo-core-framework/master</url>
+        <url>https://github.com/kdyck/qaframework-core</url>
         <developerConnection>scm:git:git@github.com:kdyck/qarepo-core-framework.git</developerConnection>
         <tag>develop</tag>
     </scm>
@@ -72,26 +71,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.43</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.10.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-csv</artifactId>
-            <version>2.10.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.11.0</version>
@@ -102,19 +81,9 @@
             <version>2.11.0</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.6</version>
-        </dependency>
-        <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>3.7.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-csv</artifactId>
-            <version>1.7</version>
         </dependency>
     </dependencies>
 
