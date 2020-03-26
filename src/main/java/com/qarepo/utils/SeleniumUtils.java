@@ -58,21 +58,9 @@ public final class SeleniumUtils {
      */
     public static void takeScreenshot(String browser, String screenshotName) throws IOException {
         File screenshot = ((TakesScreenshot) WebDriverThreadManager.getDriver()).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(screenshot, new File("./test-output/Reports/Screenshots/" + browser + " - "
+        FileUtils.copyFile(screenshot, new File("./test-output/Screenshots/" + browser + " - "
                 + WebDriverThreadManager.getDriver().hashCode() + " - " + screenshotName + ".png"));
 
-    }
-
-    /**
-     * returns the path of an existing screenshot
-     *
-     * @param browser        {@link String}  browser name for screenshot filename
-     * @param screenshotName filename for screenshot
-     * @return screenshot image path
-     */
-    public static String getScreenshotPath(String browser, String screenshotName) {
-        return "./Screenshots/" + browser + " - " + WebDriverThreadManager.getDriver().hashCode() + " - "
-                + screenshotName + ".png";
     }
 
     /**
@@ -102,6 +90,7 @@ public final class SeleniumUtils {
      * years)
      *
      * @param period {@link TemporalAmount} for number of days to add from current date.
+     * @return String representation of the date
      */
     public static String dateGenerator(TemporalAmount period) {
         LocalDateTime localDate = LocalDateTime.now().plus(period);

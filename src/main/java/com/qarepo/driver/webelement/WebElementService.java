@@ -19,20 +19,32 @@ package com.qarepo.driver.webelement;
 
 import com.qarepo.driver.WebDriverThreadManager;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import java.util.Map;
 
 public class WebElementService {
 
+    /**
+     *
+     * @param webElement WebElement to extract details from
+     * @return WebElementDetails which includes the original WebElement and all extracted details
+     */
     public WebElementDetails extractElementDetails(WebElement webElement) {
         WebElementDetails webElementDetails = new WebElementDetails();
+        if (webElement != null) {
+            webElementDetails.setWebElement(webElement);
+        } else {
+            throw new NoSuchElementException("Element Not Found In The DOM: " + webElement.toString());
+        }
         webElementDetails.setLocator(webElement.toString());
-        webElementDetails.setWebElement(webElement);
-        if (webElementDetails.getTagName() != null) {
+        if (webElement.getTagName() != null) {
             webElementDetails.setTagName(webElement.getTagName());
         }
-        webElementDetails.setText(webElement.getText());
+        if (webElement.getText() != null) {
+            webElementDetails.setText(webElement.getText());
+        }
         webElementDetails.setAttributes(getWebElementAttributes(webElement));
         return webElementDetails;
     }
@@ -41,9 +53,9 @@ public class WebElementService {
         Map<String, String> webElementAttributes;
         JavascriptExecutor executor = (JavascriptExecutor) WebDriverThreadManager.getDriver();
         webElementAttributes = (Map<String, String>) executor.executeScript(
-                "var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) " +
-                        "{ items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value };" +
-                        " return items;", element);
+                "var elements = {}; for (i = 0; i < arguments[0].attributes.length; ++i) " +
+                        "{ elements[arguments[0].attributes[i].name] = arguments[0].attributes[i].value };" +
+                        " return elements;", element);
         return webElementAttributes;
     }
 
