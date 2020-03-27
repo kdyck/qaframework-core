@@ -22,7 +22,10 @@ import com.qarepo.driver.webelement.WebElementService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
@@ -37,15 +40,14 @@ public class WebDriverActions {
     private static final Logger LOGGER = LogManager.getLogger(WebDriverActions.class);
     private static final int DEFAULT_WAIT = 10;
     private static final int DEFAULT_POLLING = 1;
-    private static String driverHash = "[WebDriver Hash: " + WebDriverThreadManager.getDriver()
-            .hashCode() + "] ";
     private static FluentWait<WebDriver> wait;
     private static WebElementService webElementService = new WebElementService();
 
     /**
      * Waits for WebElement to be present in DOM, extracts details from WebElement and logs WebElementDetails.
      * Number of times that DOM will be checked for WebElement = timeout/polling
-     * @param by locator for WebElement
+     *
+     * @param by      locator for WebElement
      * @param timeout time to wait for WebElement to be available before throwing org.openqa.selenium.TimeoutException
      * @param polling interval for checking if WebElement is present in the DOM
      * @return WebElementDetails which includes the original WebElement and all extracted details
@@ -55,9 +57,9 @@ public class WebDriverActions {
         wait = new FluentWait<>(driver);
         wait.withTimeout(Duration.ofSeconds(timeout)).pollingEvery(Duration.ofSeconds(polling))
                 .ignoring(WebDriverException.class).until(e -> driver.findElement(by));
-        LOGGER.info(driverHash + "Waiting for element to be available: " + by.toString());
+        LOGGER.info("[WebDriver Hash : " + driver.hashCode() + "] Waiting for element to be available: " + by.toString());
         WebElementDetails webElementDetails = webElementService.extractElementDetails(driver.findElement(by));
-        LOGGER.info(driverHash + "Element Found: " + webElementDetails.toString());
+        LOGGER.info("[WebDriver Hash : " + driver.hashCode() + "] Element Found: " + webElementDetails.toString());
         return webElementDetails;
     }
 
@@ -72,7 +74,8 @@ public class WebDriverActions {
     /**
      * Waits for WebElement to be present in DOM, extracts details from WebElement and logs WebElementDetails.
      * Number of times that DOM will be checked for WebElement = timeout/polling
-     * @param by locator for WebElement
+     *
+     * @param by      locator for WebElement
      * @param timeout time to wait for WebElement to be available before throwing org.openqa.selenium.TimeoutException
      * @param polling interval for checking if WebElement is present in the DOM
      * @return List of WebElementDetails which includes the original WebElements and all extracted details
@@ -85,13 +88,14 @@ public class WebDriverActions {
         List<WebElementDetails> webElementDetailsList = driver.findElements(by).stream()
                 .map(e -> webElementService.extractElementDetails(e))
                 .collect(Collectors.toList());
-        webElementDetailsList.forEach(e -> LOGGER.info(driverHash + e.toString()));
+        webElementDetailsList.forEach(e -> LOGGER.info("[WebDriver Hash : " + driver.hashCode() + "] " + e.toString()));
         return webElementDetailsList;
     }
 
     /**
      * Waits for WebElement to be present in DOM, extracts details from WebElement and logs WebElementDetails.
      * Number of times that DOM will be checked for WebElement = timeout/polling
+     *
      * @param by locator for WebElement
      * @return List of WebElementDetails which includes the original WebElements and all extracted details
      */
@@ -102,10 +106,11 @@ public class WebDriverActions {
     /**
      * Waits for WebElement to be in DOM that contains text, extracts details from WebElement and logs WebElementDetails.
      * Number of times that DOM will be checked for WebElement = timeout/polling
-     * @param by locator for WebElement
+     *
+     * @param by           locator for WebElement
      * @param textContains text to be contained in WebElement
-     * @param timeout time to wait for WebElement to be available before throwing org.openqa.selenium.TimeoutException
-     * @param polling interval for checking if WebElement is present in the DOM
+     * @param timeout      time to wait for WebElement to be available before throwing org.openqa.selenium.TimeoutException
+     * @param polling      interval for checking if WebElement is present in the DOM
      * @return List of WebElementDetails which includes the original WebElements and all extracted details
      */
     public static WebElementDetails findElementWithTextContainsWait(By by, String textContains, long timeout, long polling) {
@@ -121,7 +126,8 @@ public class WebDriverActions {
     /**
      * Waits for WebElement to be in DOM that contains text, extracts details from WebElement and logs WebElementDetails.
      * Number of times that DOM will be checked for WebElement = timeout/polling
-     * @param by locator for WebElement
+     *
+     * @param by           locator for WebElement
      * @param textContains textContains text to be contained in WebElement
      * @return WebElementDetails which includes the original WebElement and all extracted details
      */
@@ -132,9 +138,10 @@ public class WebDriverActions {
     /**
      * Waits for URL to contain a String
      * Number of times that DOM will be checked for WebElement = timeout/polling
+     *
      * @param expectedURL partial or complete URL
-     * @param timeout time to wait for expectedURL
-     * @param polling interval for checking URL
+     * @param timeout     time to wait for expectedURL
+     * @param polling     interval for checking URL
      */
     public static void waitForUrl(String expectedURL, long timeout, long polling) {
         WebDriver driver = WebDriverThreadManager.getDriver();
@@ -145,6 +152,7 @@ public class WebDriverActions {
 
     /**
      * Waits for URL to contain a String
+     *
      * @param expectedURL partial or complete URL
      */
     public static void waitForUrl(String expectedURL) {
@@ -156,7 +164,7 @@ public class WebDriverActions {
         for (int i = 0; i < 10; i++) {
             try {
                 webElementDetails = findElementWithWait(by);
-                LOGGER.info("Clicking element: " + webElementDetails.toString());
+                LOGGER.info("[WebDriver Hash : " + WebDriverThreadManager.getDriver().hashCode() + "] Clicking element: " + webElementDetails.toString());
                 webElementDetails.getWebElement().click();
                 break;
             } catch (ElementClickInterceptedException e) {

@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <name>QARepo Core Framework</name>
@@ -10,7 +9,7 @@
 
     <groupId>com.qarepo</groupId>
     <artifactId>core-framework</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -22,7 +21,7 @@
         <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
 
-     <!--   <wdm.mainClass>com.qarepo.TestNGRunner</wdm.mainClass>-->
+        <!--   <wdm.mainClass>com.qarepo.TestNGRunner</wdm.mainClass>-->
     </properties>
 
     <developers>
@@ -47,10 +46,10 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:git://github.com/kdyck/qarepo-core-framework.git</connection>
+        <connection>scm:git:git://github.com/kdyck/qaframework-core.git</connection>
         <url>https://github.com/kdyck/qaframework-core</url>
-        <developerConnection>scm:git:git@github.com:kdyck/qarepo-core-framework.git</developerConnection>
-        <tag>develop</tag>
+        <developerConnection>scm:git:git@github.com:kdyck/qaframework-core.git</developerConnection>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
@@ -92,19 +91,49 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-		</repository>
+        <repository>
+            <id>bintray-kdyck-QARepo</id>
+            <name>kdyck-QARepo</name>
+            <url>https://api.bintray.com/maven/kdyck/QARepo/Core-Framework/;publish=1</url>
+        </repository>
     </distributionManagement>
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -115,16 +144,15 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
-   <!--                     <configuration>
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <shadedClassifierName>SHADED</shadedClassifierName>
-                            <transformers>
-                                <transformer implementation=
-                                                     "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.qarepo.TestNGRunner</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>-->
+                        <!--                     <configuration>
+                                                 <shadedArtifactAttached>true</shadedArtifactAttached>
+                                                 <shadedClassifierName>SHADED</shadedClassifierName>
+                                                 <transformers>
+                                                     <transformer implementation= "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                                         <mainClass>com.qarepo.TestNGRunner</mainClass>
+                                                     </transformer>
+                                                 </transformers>
+                                             </configuration>-->
                     </execution>
                 </executions>
             </plugin>
@@ -178,26 +206,39 @@
                 </executions>
             </plugin>
             <plugin>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.5.2</version>
-            </plugin>
-            <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.7</version>
             </plugin>
             <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
-                <extensions>true</extensions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.0-M1</version>
                 <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <goals>deploy</goals>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.0.0-M1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <formats>
+                        <format>html</format>
+                        <format>xml</format>
+                    </formats>
+                    <check />
                 </configuration>
             </plugin>
         </plugins>
-
     </build>
 
     <reporting>

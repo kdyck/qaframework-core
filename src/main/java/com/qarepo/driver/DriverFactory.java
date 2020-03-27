@@ -20,6 +20,7 @@ package com.qarepo.driver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -30,10 +31,10 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 /*
@@ -72,6 +73,21 @@ public final class DriverFactory {
         } else if (browser.equalsIgnoreCase("Google Chrome")) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
+            driver = new ChromeDriver(options);
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            return driver;
+        } else if (browser.equalsIgnoreCase("Google Chrome Proxy Bypass")) {
+            Properties props = new Properties();
+            try (InputStream in = new FileInputStream(new File("./src/test/resources/properties/ui.test.properties"))) {
+                props.load(in);
+                System.setProperty("webdriver.chrome.driver", props.getProperty("webdriver.chrome.driver"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ChromeOptions options = new ChromeOptions();
+            Proxy proxy = new Proxy();
+            proxy.setNoProxy(props.getProperty("proxy.bypass"));
             driver = new ChromeDriver(options);
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
