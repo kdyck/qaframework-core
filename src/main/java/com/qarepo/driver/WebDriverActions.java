@@ -55,8 +55,9 @@ public class WebDriverActions {
         wait = new FluentWait<>(driver);
         wait.withTimeout(Duration.ofSeconds(timeout)).pollingEvery(Duration.ofSeconds(polling))
                 .ignoring(WebDriverException.class).until(e -> driver.findElement(by));
+        LOGGER.info(driverHash + "Waiting for element to be available: " + by.toString());
         WebElementDetails webElementDetails = webElementService.extractElementDetails(driver.findElement(by));
-        LOGGER.info(driverHash + webElementDetails.toString());
+        LOGGER.info(driverHash + "Element Found: " + webElementDetails.toString());
         return webElementDetails;
     }
 
@@ -150,20 +151,20 @@ public class WebDriverActions {
         waitForUrl(expectedURL, 10, DEFAULT_POLLING);
     }
 
-    public static void clickElementWithWait(By by, long timeout, long polling) {
+    public static WebElementDetails clickElementWithWait(By by, long timeout, long polling) {
+        WebElementDetails webElementDetails = new WebElementDetails();
         for (int i = 0; i < 10; i++) {
             try {
-                WebDriver driver = WebDriverThreadManager.getDriver();
-                wait = new FluentWait<>(driver);
-                wait.withTimeout(Duration.ofSeconds(timeout)).pollingEvery(Duration.ofSeconds(polling))
-                        .ignoring(WebDriverException.class).until(ExpectedConditions.elementToBeClickable(by));
-                WebDriverThreadManager.getDriver().findElement(by).click();
+                webElementDetails = findElementWithWait(by);
+                LOGGER.info("Clicking element: " + webElementDetails.toString());
+                webElementDetails.getWebElement().click();
                 break;
             } catch (ElementClickInterceptedException e) {
                 LOGGER.log(Level.WARN, "[WebDriver Hash: " + WebDriverThreadManager.getDriver().hashCode()
-                        + "][attempt: " + (i + 1) + "] Failed to click element: " + by.toString());
+                        + "][attempt: " + (i + 1) + "] Failed to click element: " + webElementDetails.toString());
             }
         }
+        return webElementDetails;
     }
 
     public static void clickElementWithWait(By by) {

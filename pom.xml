@@ -97,6 +97,10 @@
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
     </distributionManagement>
 
     <build>
@@ -111,7 +115,7 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <configuration>
+   <!--                     <configuration>
                             <shadedArtifactAttached>true</shadedArtifactAttached>
                             <shadedClassifierName>SHADED</shadedClassifierName>
                             <transformers>
@@ -120,7 +124,7 @@
                                     <mainClass>com.qarepo.TestNGRunner</mainClass>
                                 </transformer>
                             </transformers>
-                        </configuration>
+                        </configuration>-->
                     </execution>
                 </executions>
             </plugin>
