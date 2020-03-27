@@ -75,7 +75,7 @@ public class WebElementDetails {
                 "locator=" + locator +
                 ", tagName='" + tagName + '\'' +
                 ", text='" + text + '\'' +
-                ", attributes=" + attributes.toString().substring(0, 50) +
+                ", attributes=" + attributes +
                 '}';
     }
 }
